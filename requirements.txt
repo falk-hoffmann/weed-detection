@@ -1,0 +1,17 @@
+PIL
+base64
+numpy
+onnxruntime
+os
+pandas
+pathlib
+plotly
+random
+rfdetr
+streamlit
+supervision
+textwrap
+time
+torchvision
+typing
+ultralytics
