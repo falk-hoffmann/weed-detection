@@ -1,14 +1,16 @@
-# Precision Farming · Weed Detection
+# 🌱 Precision Farming · Weed Detection
 
 Computer-vision pipeline for detecting **maize and weeds under realistic agricultural field conditions**.
 
-The project compares CNN- and transformer-based object detectors, investigates robustness to challenging field conditions, benchmarks inference performance, and provides an interactive Streamlit application for exploring the results.
+The project compares CNN- and transformer-based object detectors, investigates robustness to challenging field conditions, benchmarks inference performance, and provides an interactive [Streamlit](https://streamlit.io/) application for exploring the results.
 
-## Project Scope
+---
+
+## 🎯 Project Scope
 
 The long-term motivation is autonomous precision weeding:
 
-**Field Image → Detect Crop & Weed → Localize Target → Verify Safety → Actuate**
+> **Field Image → Detect Crop & Weed → Localize Target → Verify Safety → Actuate**
 
 This project focuses specifically on the **object-detection stage**:
 
@@ -18,11 +20,13 @@ This project focuses specifically on the **object-detection stage**:
 - Nano, Small, and Medium model variants
 - Accuracy, robustness, and inference-speed evaluation
 
-Target localization, safety zones, and physical actuation are outside the current project scope.
+**Target localization, safety zones, and physical actuation are outside the current project scope.**
 
-## Dataset
+---
 
-The project uses the **CornWeed Dataset** by Iqbal et al.
+## 🌽 Dataset
+
+The project uses the **CornWeed Dataset** by Iqbal et al. (2023), publicly available through [Zenodo](https://doi.org/10.5281/zenodo.7961764).
 
 | Split | Images |
 |---|---:|
@@ -32,15 +36,17 @@ The project uses the **CornWeed Dataset** by Iqbal et al.
 
 The dataset contains agricultural field images with bounding-box annotations for maize and weeds. Images include realistic variations in illumination, shadows, plant size, occlusion, and background structure.
 
-The predefined train/validation split is retained for reproducibility and direct comparison between experiments.
+The predefined train/validation split is retained for **reproducibility and direct comparison between experiments**.
 
-## Detection Models
+---
+
+## 🧠 Detection Models
 
 ### YOLO26
 
-Ultralytics YOLO26 is used as the CNN-based real-time object detector.
+[Ultralytics YOLO](https://docs.ultralytics.com/) is used as the CNN-based real-time object detector.
 
-Evaluated variants:
+**Evaluated variants:**
 
 - Nano
 - Small
@@ -50,19 +56,27 @@ Training includes pretrained weights, fine-tuning on CornWeed, and controlled au
 
 ### RF-DETR
 
-RF-DETR is used as the transformer-based comparison architecture.
+[RF-DETR](https://github.com/roboflow/rf-detr) is used as the transformer-based comparison architecture.
 
-Evaluated variants:
+**Evaluated variants:**
 
 - Nano
 - Small
 - Medium
 
-The models are fine-tuned on the same maize/weed detection task to enable comparison with YOLO26.
+The models are fine-tuned on the same maize/weed detection task to enable a direct comparison with YOLO26.
 
-## Experiments
+---
 
-The project investigates three main areas.
+## 🔬 Experiments
+
+The experimental design focuses on three questions:
+
+| Area | Main Question |
+|---|---|
+| **Detection Quality** | How accurately are maize and weeds detected? |
+| **Robustness** | How well do models handle difficult field conditions? |
+| **Inference Performance** | What is the trade-off between accuracy and speed? |
 
 ### 1. Detection Quality
 
@@ -71,19 +85,19 @@ Models are evaluated using:
 - Precision
 - Recall
 - mAP50
-- mAP50-95
+- **mAP50-95**
 
-The primary comparison metric is **mAP50-95**.
+The primary comparison metric is **mAP50-95**, providing a stricter assessment across multiple IoU thresholds.
 
 ### 2. Robustness
 
-YOLO augmentation experiments investigate:
+Controlled YOLO augmentation experiments investigate:
 
 - Mosaic
 - Vertical flipping
 - HSV value / illumination variation
 
-The goal is to evaluate robustness under challenging agricultural conditions such as shadows, changing sunlight, small weeds, and complex soil backgrounds.
+The goal is to evaluate robustness under challenging agricultural conditions such as **shadows, changing sunlight, small weeds, occlusion, and complex soil backgrounds**.
 
 ### 3. Inference Performance
 
@@ -94,13 +108,19 @@ Inference benchmarking compares:
 - PyTorch vs. ONNX
 - Detection quality vs. inference latency
 
-All model/backend combinations are benchmarked using a fixed set of validation images with warm-up runs and per-image latency measurements.
+All model/backend combinations are benchmarked using a **fixed set of validation images**, including warm-up runs and per-image latency measurements.
 
-Reported latency statistics include mean, median, and P95.
+Reported latency statistics include:
 
-## Application
+`Mean` · `Median` · `P95`
 
-An interactive **Streamlit** application provides:
+This enables a direct evaluation of the **accuracy–latency trade-off** between model architectures, sizes, and inference backends.
+
+---
+
+## 🖥️ Application
+
+An interactive [Streamlit](https://streamlit.io/) application provides:
 
 - Maize and weed detection
 - Prediction vs. ground-truth visualization
@@ -111,9 +131,13 @@ An interactive **Streamlit** application provides:
 - Inference benchmarks
 - Accuracy–latency comparison
 
-For the public deployment, inference is intentionally simplified to the YOLO Nano, Small, and Medium PyTorch models.
+For the **public deployment**, inference is intentionally simplified to the **YOLO Nano, Small, and Medium PyTorch models**.
 
-## Training & Deployment
+RF-DETR and ONNX remain part of the experimental evaluation but are not required by the deployed application.
+
+---
+
+## ☁️ Training & Deployment
 
 The project evolved from interactive experimentation to a reproducible cloud workflow:
 
@@ -135,17 +159,24 @@ Docker
 Google Cloud Run
 ```
 
-Initial experiments were developed interactively in Google Colab. As the experiment grid increased, training was moved to containerized Google Cloud Batch jobs.
+Initial experiments were developed interactively in [Google Colab](https://colab.research.google.com/), using NVIDIA T4 and L4 GPUs.
 
-The public Streamlit application is packaged as a Docker container and deployed using Google Cloud Run.
+As the experiment grid increased, training was moved to containerized [Google Cloud Batch](https://cloud.google.com/batch) jobs, with experiment artifacts stored in [Google Cloud Storage](https://cloud.google.com/storage).
 
-## Project Structure
+The public Streamlit application is packaged as a [Docker](https://www.docker.com/) container and deployed as a serverless service using [Google Cloud Run](https://cloud.google.com/run).
+
+This separates the computationally expensive **training workflow** from the lightweight **public inference application**.
+
+---
+
+## 📁 Project Structure
 
 ```text
 .
 ├── app.py
 ├── pages/
 │   ├── background.py
+│   ├── prediction.py
 │   ├── model_quality.py
 │   ├── speed_benchmark.py
 │   ├── experiments.py
@@ -161,7 +192,9 @@ The public Streamlit application is packaged as a Docker container and deployed 
 └── README.md
 ```
 
-## Limitations
+---
+
+## ⚠️ Limitations
 
 Current limitations include:
 
@@ -171,9 +204,13 @@ Current limitations include:
 - Complex soil structures
 - Generalization to conditions not represented in the training data
 
-The predefined train/validation split is retained. K-fold cross-validation was not performed due to project scope and computational cost.
+The predefined train/validation split is retained. **K-fold cross-validation was not performed** due to project scope and computational cost.
 
-## Future Work
+The current system detects plants using bounding boxes. It does **not** determine a precise physical treatment point or perform autonomous actuation.
+
+---
+
+## 🔭 Future Work
 
 Potential extensions include:
 
@@ -187,19 +224,60 @@ Potential extensions include:
 - Spatial safety zones around maize
 - Integration with a targeted actuation system
 
-## Dataset & Licenses
+A future precision-weeding system could extend the current detector from:
 
-**CornWeed Dataset**  
-Iqbal et al. (2023)  
-DOI: `10.5281/zenodo.7961764`  
-License: CC BY 4.0
+> **Where is the weed?**
 
-**Ultralytics YOLO26**  
-License: AGPL-3.0 or Ultralytics Enterprise License
+to:
 
-**RF-DETR**  
-The Nano–Large model family used in this project is provided under the Apache License 2.0.
+> **Where can the weed be treated safely?**
 
-## Tech Stack
+This would require more precise localization, crop safety constraints, and integration with the physical actuator.
 
-`Python` · `PyTorch` · `Ultralytics` · `RF-DETR` · `Pandas` · `Plotly` · `Streamlit` · `Docker` · `Google Cloud Batch` · `Google Cloud Storage` · `Google Cloud Run`
+---
+
+## 📜 Dataset & Licenses
+
+### CornWeed Dataset
+
+**Iqbal et al. (2023)**  
+[DOI: 10.5281/zenodo.7961764](https://doi.org/10.5281/zenodo.7961764)  
+License: **CC BY 4.0**
+
+### Ultralytics YOLO26
+
+Developed by [Ultralytics](https://www.ultralytics.com/).  
+License: **AGPL-3.0 or Ultralytics Enterprise License**
+
+See the [Ultralytics licensing information](https://www.ultralytics.com/license) for details.
+
+### RF-DETR
+
+Developed by [Roboflow](https://github.com/roboflow/rf-detr).  
+The Nano–Large model family used in this project is provided under the **Apache License 2.0**.
+
+---
+
+## 🛠️ Tech Stack
+
+**Machine Learning**
+
+`Python` · `PyTorch` · `Ultralytics` · `RF-DETR`
+
+**Data & Visualization**
+
+`Pandas` · `Plotly`
+
+**Application**
+
+`Streamlit`
+
+**Cloud & Deployment**
+
+`Docker` · `Google Cloud Batch` · `Google Cloud Storage` · `Google Cloud Run`
+
+---
+
+### Project focus
+
+**Robust weed detection under realistic field conditions — from model training and evaluation to a deployable computer-vision application.**
