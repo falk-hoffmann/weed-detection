@@ -3,19 +3,16 @@
 Computer-vision pipeline for detecting **maize and weeds under realistic
 agricultural field conditions**.
 
-
 The project compares CNN- and transformer-based object detectors,
 investigates robustness to challenging field conditions, benchmarks
 inference performance, and provides an interactive
 [Streamlit](https://streamlit.io/) application for exploring the
 results.
 
-
-🕹️ **Public demo:**
-[weed-detection.cloud.run](https://weed-detection.cloud.run/) — a
-lightweight deployment using **PyTorch** with YOLO26 **Nano, Small, and
+**Public demo:**
+[weed-detection.cloud.run](https://weed-detection.cloud.run/) --- a
+lightweight deployment using **PyTorch with YOLO26 Nano, Small, and
 Medium only**.
-
 
 ------------------------------------------------------------------------
 
@@ -45,11 +42,11 @@ The project uses the **CornWeed Dataset** by Iqbal et al. (2023),
 publicly available through
 [Zenodo](https://doi.org/10.5281/zenodo.7961764).
 
-  Split          Images
-  ------------ --------
-  Training        2,862
-  Validation        712
-  Unlabelled      4,981
+| Split | Images |
+|---|---:|
+| Training | 2,862 |
+| Validation | 712 |
+| Unlabelled | 4,981 |
 
 The dataset contains agricultural field images with bounding-box
 annotations for maize and weeds. Images include realistic variations in
@@ -101,18 +98,11 @@ enable a direct comparison with YOLO26.
 
 The experimental design focuses on three questions:
 
-  ---------------------------------------------------------------------
-  Area                               Main Question
-  ---------------------------------- ----------------------------------
-  **Detection Quality**              How accurately are maize and weeds
-                                     detected?
-
-  **Robustness**                     How well do models handle
-                                     difficult field conditions?
-
-  **Inference Performance**          What is the trade-off between
-                                     accuracy and speed?
-  ---------------------------------------------------------------------
+| Area | Main Question |
+|---|---|
+| **Detection Quality** | How accurately are maize and weeds detected? |
+| **Robustness** | How well do models handle difficult field conditions? |
+| **Inference Performance** | What is the trade-off between accuracy and speed? |
 
 ### 1. Detection Quality
 
