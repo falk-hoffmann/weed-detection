@@ -9,7 +9,7 @@ inference performance, and provides an interactive
 [Streamlit](https://streamlit.io/) application for exploring the
 results.
 
-**Public demo:**
+🕹️ **Public demo:**
 [weed-detection.cloud.run](https://weed-detection.cloud.run/) --- a
 lightweight deployment using **PyTorch with YOLO26 Nano, Small, and
 Medium only**.
