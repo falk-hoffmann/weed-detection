@@ -3,16 +3,17 @@
 Computer-vision pipeline for detecting **maize and weeds under realistic
 agricultural field conditions**.
 
+🕹️ **Public demo:**
+[weed-detection.cloud.run](https://weed-detection.cloud.run/) --- a
+lightweight deployment using **PyTorch with YOLO26 Nano, Small, and
+Medium only**.
+
 The project compares CNN- and transformer-based object detectors,
 investigates robustness to challenging field conditions, benchmarks
 inference performance, and provides an interactive
 [Streamlit](https://streamlit.io/) application for exploring the
 results.
 
-🕹️ **Public demo:**
-[weed-detection.cloud.run](https://weed-detection.cloud.run/) --- a
-lightweight deployment using **PyTorch with YOLO26 Nano, Small, and
-Medium only**.
 
 ------------------------------------------------------------------------
 
