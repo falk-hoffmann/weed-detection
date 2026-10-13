@@ -13,7 +13,7 @@ results.
 
 🕹️ **Public demo:**
 [weed-detection.cloud.run](https://weed-detection.cloud.run/) — a
-lightweight deployment using **PyTorch with YOLO26 Nano, Small, and
+lightweight deployment using **PyTorch** with YOLO26 **Nano, Small, and
 Medium only**.
 
 
